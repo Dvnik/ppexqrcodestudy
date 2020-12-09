@@ -76,7 +76,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TUy-rd-cMF">
-                                <rect key="frame" x="87.5" y="5" width="200" height="200"/>
+                                <rect key="frame" x="87.5" y="76" width="200" height="200"/>
                                 <color key="backgroundColor" systemColor="systemTealColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="DU4-Ck-58v"/>
@@ -117,9 +117,15 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUU-VZ-F1C">
                                 <rect key="frame" x="304" y="411" width="66" height="30"/>
                                 <state key="normal" title="生成/清除"/>
+                                <connections>
+                                    <action selector="generatorQRCode:" destination="LqF-NG-Uni" eventType="touchUpInside" id="JbZ-yj-tW6"/>
+                                </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="jSi-HN-SYm">
                                 <rect key="frame" x="3" y="376" width="369" height="31"/>
+                                <connections>
+                                    <action selector="changeImageViewScale:" destination="LqF-NG-Uni" eventType="valueChanged" id="nTn-J7-zCI"/>
+                                </connections>
                             </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kBk-II-R6I"/>
@@ -131,9 +137,9 @@
                             <constraint firstItem="eYh-Nc-gnk" firstAttribute="leading" secondItem="kBk-II-R6I" secondAttribute="leading" constant="5" id="Ffz-tB-Nas"/>
                             <constraint firstItem="kBk-II-R6I" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cKp-Pp-4wX" secondAttribute="trailing" symbolic="YES" id="NJb-oX-O6t"/>
                             <constraint firstItem="cKp-Pp-4wX" firstAttribute="top" secondItem="UNt-dk-9rr" secondAttribute="bottom" constant="10" id="PSB-li-Izh"/>
+                            <constraint firstItem="jSi-HN-SYm" firstAttribute="top" secondItem="TUy-rd-cMF" secondAttribute="bottom" constant="100" id="VXF-7C-irf"/>
                             <constraint firstItem="kBk-II-R6I" firstAttribute="trailing" secondItem="UNt-dk-9rr" secondAttribute="trailing" constant="5" id="Xvg-K3-Z9q"/>
                             <constraint firstItem="VUU-VZ-F1C" firstAttribute="top" secondItem="jSi-HN-SYm" secondAttribute="bottom" constant="5" id="aH7-Ri-Tfh"/>
-                            <constraint firstItem="TUy-rd-cMF" firstAttribute="top" secondItem="kBk-II-R6I" secondAttribute="top" constant="5" id="gPM-mC-zKP"/>
                             <constraint firstItem="kBk-II-R6I" firstAttribute="bottom" secondItem="eYh-Nc-gnk" secondAttribute="bottom" constant="5" id="gpn-6L-kBU"/>
                             <constraint firstItem="TUy-rd-cMF" firstAttribute="centerX" secondItem="Rg3-Ct-BxJ" secondAttribute="centerX" id="gqI-gm-VWj"/>
                             <constraint firstItem="UNt-dk-9rr" firstAttribute="top" secondItem="zFK-xY-cIi" secondAttribute="bottom" constant="5" id="ims-F1-yuK"/>
@@ -147,6 +153,12 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="產生器" image="qrcode" catalog="system" id="Bgl-X5-B5I"/>
+                    <connections>
+                        <outlet property="correctionLevelSegmentControl" destination="UNt-dk-9rr" id="tqc-Zl-ysN"/>
+                        <outlet property="imgQRCode" destination="TUy-rd-cMF" id="JMy-V0-fz0"/>
+                        <outlet property="sldImageSize" destination="jSi-HN-SYm" id="HQB-Yq-FIU"/>
+                        <outlet property="textViewInput" destination="eYh-Nc-gnk" id="kyw-hv-7DS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Agx-cq-lTK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

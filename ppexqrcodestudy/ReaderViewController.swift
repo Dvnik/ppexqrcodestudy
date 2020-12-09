@@ -106,11 +106,7 @@ extension ReaderViewController
             }
         }
         //實體化一個AVCaptureMetadataOutput實體並設定至captureSession
-        if captureSession?.addOutput(getAVCaptureMetadataOutput()) == nil
-        {
-            failed()
-            return
-        }
+        setAVCaptureMetadataOutput()
         // 設定preview的畫面要呈現在哪邊
         setQRCodePreview()
         //設置邊框
@@ -142,14 +138,20 @@ extension ReaderViewController
         return videoInput
     }
     //因為要掃描的是QRCode，解析的資訊會變成metadata輸出，要娶的是AVCaptureMetadataOutput實體
-    private func getAVCaptureMetadataOutput() -> AVCaptureMetadataOutput
+    private func setAVCaptureMetadataOutput()
     {
+        // 需要先addOutput之後才能做細部設定
+        // 先做設定再addOutput會出錯
         let metadataOutput = AVCaptureMetadataOutput()
+        if captureSession?.addOutput(metadataOutput) == nil
+        {
+            failed()
+            return
+        }
         //使用 DispatchQueue.main 來取得預設的主佇列(眾多範例、文件都這麼寫)
         metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         // 告訴 App 我們所想要處理 metadata 的對象對象類型，解析QRCode的列舉就是[qr]
         metadataOutput.metadataObjectTypes = [.qr] // Also have things like Face, body, cats
-        return metadataOutput
     }
     // 設定掃描預覽畫面範圍
     private func setQRCodePreview()

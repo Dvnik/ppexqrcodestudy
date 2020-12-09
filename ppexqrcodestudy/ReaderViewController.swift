@@ -8,6 +8,8 @@
 import UIKit
 // 相機相關的套件(或引入AVKit也行)
 import AVFoundation
+//要開啟Safari網頁的話要先引入相關服務
+import SafariServices
 
 class ReaderViewController: UIViewController
 {
@@ -67,6 +69,22 @@ class ReaderViewController: UIViewController
     {
         callingScanner()
     }
+    //開啟網頁
+    @IBAction func doOpenSafari(_ sender: Any)
+    {
+        if let url = URL(string: outputTextView.text)
+        {
+            let safariVC = SFSafariViewController(url: url)
+            present(safariVC, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func doScanAlbum(_ sender: Any)
+    {
+        callAlbumToPickImage()
+    }
+    
+    
     
 }
 
@@ -206,7 +224,7 @@ extension ReaderViewController:AVCaptureMetadataOutputObjectsDelegate
             callingScanner()
         }
     }
-    //MARD: Functions
+    //MARK: Functions
     //顯示框框在掃描到的QRCode上
     func showQRCodeBounds(frame: CGRect?) {
         guard let frame = frame else { return }
@@ -220,3 +238,37 @@ extension ReaderViewController:AVCaptureMetadataOutputObjectsDelegate
         })
     }
 }
+
+//MARK:- UIImagePickerControllerDelegate
+//用來選取圖像的方法。
+extension ReaderViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate
+{
+    //MARK: Override
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
+    {
+        guard let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+            let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy:CIDetectorAccuracyHigh]),
+            let ciImage = CIImage(image: pickedImage),
+            let features = detector.features(in: ciImage) as? [CIQRCodeFeature] else
+        {
+            return
+            
+        }
+        // 取出字串
+        let stringValue = features.reduce(""){ $0 + ($1.messageString ?? "")}
+        //取到的字顯示出來
+        showAnyOutputText(outputStr: stringValue)
+        //將picker丟棄，一定要加上這句，否則選了相片之後會一直停留在選相簿的畫面上
+        picker.dismiss(animated: true, completion: nil)
+        
+    }
+    //MARK:Functions
+    func callAlbumToPickImage()
+    {
+        let photoController = UIImagePickerController()
+        photoController.delegate = self
+        photoController.sourceType = .photoLibrary
+        present(photoController,animated: true , completion: nil)
+    }
+}
+

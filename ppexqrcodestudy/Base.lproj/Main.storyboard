@@ -42,17 +42,37 @@
                                     <action selector="doCameraRead:" destination="Nco-wJ-slo" eventType="touchUpInside" id="bG9-HF-p9n"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUM-bD-ico">
+                                <rect key="frame" x="5" y="475" width="156" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="讀取結果以網頁開啟"/>
+                                <connections>
+                                    <action selector="doOpenSafari:" destination="Nco-wJ-slo" eventType="touchUpInside" id="4LL-wY-Bp0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PQQ-h8-8wd">
+                                <rect key="frame" x="5" y="437" width="203" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="開啟相簿讀取照片QRCode"/>
+                                <connections>
+                                    <action selector="doScanAlbum:" destination="Nco-wJ-slo" eventType="touchUpInside" id="GPl-Rl-p28"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lds-wj-zVx"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="aoC-6a-8a2" firstAttribute="trailing" secondItem="gk1-sF-zFE" secondAttribute="trailing" id="34L-AH-wmy"/>
                             <constraint firstItem="gk1-sF-zFE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lds-wj-zVx" secondAttribute="leading" symbolic="YES" id="4DO-db-v3C"/>
+                            <constraint firstItem="rUM-bD-ico" firstAttribute="leading" secondItem="PQQ-h8-8wd" secondAttribute="leading" id="GTo-D1-RP2"/>
                             <constraint firstItem="lds-wj-zVx" firstAttribute="trailing" secondItem="aoC-6a-8a2" secondAttribute="trailing" constant="5" id="IRK-JR-7oI"/>
+                            <constraint firstItem="rUM-bD-ico" firstAttribute="top" secondItem="PQQ-h8-8wd" secondAttribute="bottom" constant="5" id="MOK-bj-FQM"/>
                             <constraint firstItem="aoC-6a-8a2" firstAttribute="leading" secondItem="lds-wj-zVx" secondAttribute="leading" constant="5" id="OgT-Gh-2c4"/>
                             <constraint firstItem="AIo-s6-xFJ" firstAttribute="centerX" secondItem="nYu-Hl-r31" secondAttribute="centerX" id="XfE-OT-gAY"/>
                             <constraint firstItem="lds-wj-zVx" firstAttribute="bottom" secondItem="aoC-6a-8a2" secondAttribute="bottom" constant="5" id="adX-Bx-qYQ"/>
                             <constraint firstItem="aoC-6a-8a2" firstAttribute="top" secondItem="gk1-sF-zFE" secondAttribute="bottom" constant="5" id="cbh-yA-YYd"/>
+                            <constraint firstItem="aoC-6a-8a2" firstAttribute="leading" secondItem="rUM-bD-ico" secondAttribute="leading" id="gAf-Wy-K4Q"/>
+                            <constraint firstItem="aoC-6a-8a2" firstAttribute="top" secondItem="rUM-bD-ico" secondAttribute="bottom" constant="5" id="gq8-g4-NyX"/>
                             <constraint firstItem="aoC-6a-8a2" firstAttribute="centerX" secondItem="nYu-Hl-r31" secondAttribute="centerX" id="rt2-QX-iCI"/>
                             <constraint firstItem="AIo-s6-xFJ" firstAttribute="top" secondItem="lds-wj-zVx" secondAttribute="top" constant="10" id="zm2-ly-Wjc"/>
                         </constraints>

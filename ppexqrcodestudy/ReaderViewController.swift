@@ -62,7 +62,6 @@ class ReaderViewController: UIViewController
             captureSession?.stopRunning()
         }
     }
-    
     //MARK:- Target Action
     // 啟動相機掃描事件
     @IBAction func doCameraRead(_ sender: Any)
@@ -78,14 +77,11 @@ class ReaderViewController: UIViewController
             present(safariVC, animated: true, completion: nil)
         }
     }
-    
+    //執行相簿掃描
     @IBAction func doScanAlbum(_ sender: Any)
     {
         callAlbumToPickImage()
     }
-    
-    
-    
 }
 
 //MARK:- QRCode Reader Function
@@ -198,8 +194,6 @@ extension ReaderViewController
         captureSession = nil
     }
 }
-
-
 //MARK: - AVCaptureMetadataOutputDelegate
 //要取得掃描後的資訊，就需要引用AVCaptureMetadataOutputObjectsDelegate
 //實作metadataOutput這個方法就可以取到掃描之後的資料
@@ -238,7 +232,6 @@ extension ReaderViewController:AVCaptureMetadataOutputObjectsDelegate
         })
     }
 }
-
 //MARK:- UIImagePickerControllerDelegate
 //用來選取圖像的方法。
 extension ReaderViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate
@@ -246,28 +239,26 @@ extension ReaderViewController:UIImagePickerControllerDelegate,UINavigationContr
     //MARK: Override
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
     {
+        // 這一包guard是解析圖片上有的QRCoded方法，大致上是這樣過來info>UIImage>ciImage>detector+features
         guard let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
             let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy:CIDetectorAccuracyHigh]),
             let ciImage = CIImage(image: pickedImage),
-            let features = detector.features(in: ciImage) as? [CIQRCodeFeature] else
-        {
-            return
-            
-        }
+            let features = detector.features(in: ciImage) as? [CIQRCodeFeature] else { return }
         // 取出字串
         let stringValue = features.reduce(""){ $0 + ($1.messageString ?? "")}
         //取到的字顯示出來
         showAnyOutputText(outputStr: stringValue)
         //將picker丟棄，一定要加上這句，否則選了相片之後會一直停留在選相簿的畫面上
         picker.dismiss(animated: true, completion: nil)
-        
     }
     //MARK:Functions
     func callAlbumToPickImage()
     {
+        // 設定ViewController
         let photoController = UIImagePickerController()
         photoController.delegate = self
         photoController.sourceType = .photoLibrary
+        // 展示相簿ViewController
         present(photoController,animated: true , completion: nil)
     }
 }
